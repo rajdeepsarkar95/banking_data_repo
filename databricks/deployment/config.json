@@ -1,0 +1,5 @@
+{
+    "databricks_host": "https://your-databricks-instance.azuredatabricks.net",
+    "databricks_token": "{{secrets.DATABRICKS_TOKEN}}",
+    "databricks_workspace_path": "/Repos/your-repo-path"
+}
