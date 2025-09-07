@@ -1,0 +1,42 @@
+{
+    "name": "bankdetails",
+    "properties": {
+        "activities": [
+            {
+                "name": "Execute_Databricks_Data_Transformation",
+                "description": "Execute Databricks notebook for data transformation",
+                "type": "DatabricksNotebook",
+                "dependsOn": [],
+                "policy": {
+                    "timeout": "7.00:00:00",
+                    "retry": 0,
+                    "retryIntervalInSeconds": 30,
+                    "secureOutput": false,
+                    "secureInput": false
+                },
+                "userProperties": [],
+                "typeProperties": {
+                    "notebookPath": "/Repos/rajdeepsarkar95/banking_data_repo/data_transformation",
+                    "baseParameters": {
+                        "input_path": "abfss://cloudfinance@cloudstorageram.dfs.core.windows.net/Raw",
+                        "output_path": "abfss://cloudfinance@cloudstorageram.dfs.core.windows.net/Transformed"
+                    },
+                    "libraries": [
+                        {
+                            "pypi": {
+                                "package": "pyspark"
+                            }
+                        }
+                    ]
+                },
+                "linkedServiceName": {
+                    "referenceName": "AzureDatabricksLinkedService",
+                    "type": "LinkedServiceReference"
+                }
+            }
+        ],
+        "annotations": [],
+        "lastPublishTime": "2025-01-07T00:00:00Z"
+    },
+    "type": "Microsoft.DataFactory/factories/pipelines"
+}

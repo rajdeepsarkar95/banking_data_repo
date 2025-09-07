@@ -1,0 +1,14 @@
+{
+    "name": "AzureDatabricksLinkedService",
+    "type": "Microsoft.DataFactory/factories/linkedservices",
+    "properties": {
+        "annotations": [],
+        "type": "AzureDatabricks",
+        "typeProperties": {
+            "domain": "https://adb-675897641147647.4.azuredatabricks.net/",
+            "authentication": "MSI",
+            "workspaceResourceId": "/subscriptions/2a1dee35-67c8-44dd-9090-4102ae6176a9/resourceGroups/CloudAnalyst/providers/Microsoft.Databricks/workspaces/databricks-cloudanalyst-workspace",
+            "existingClusterId": "your-cluster-id-here"
+        }
+    }
+}
