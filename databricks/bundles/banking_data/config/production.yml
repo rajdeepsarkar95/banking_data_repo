@@ -1,0 +1,19 @@
+# Production environment configuration
+sync:
+  include:
+    - src/**
+  exclude:
+    - "*.pyc"
+    - "__pycache__"
+ECHO is on.
+artifacts:
+  wheels: []
+ECHO is on.
+run_as:
+  user_name: "your-service-principal@your-domain.com"
+ECHO is on.
+permissions:
+  - level: CAN_VIEW
+    user_name: "data-engineers@your-domain.com"
+  - level: CAN_MANAGE
+    user_name: "data-ops@your-domain.com"

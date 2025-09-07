@@ -1,0 +1,81 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/databricks/databricks-asset-bundles/main/schemas/v1/bundle.json
+ECHO is on.
+bundle:
+  name: banking_data
+ECHO is on.
+include:
+  - databricks/bundles/banking_data/config/*.yml
+ECHO is on.
+variables:
+  environment:
+    default: development
+    description: Deployment environment
+    values:
+      - development
+      - staging
+      - production
+ECHO is on.
+targets:
+  development:
+    mode: development
+    default: true
+    workspace:
+      host: https://adb-675897641147647.4.azuredatabricks.net/
+    resources:
+      jobs:
+        banking_data_job:
+          name: "Banking Data Transformation - \${var.environment}"
+          tasks:
+            - task_key: data_transformation
+              existing_cluster_id: "\${var.existing_cluster_id}"
+              notebook_task:
+                notebook_path: "/src/data_transformation"
+                base_parameters:
+                  input_path: "abfss://cloudfinance@cloudstorageram.dfs.core.windows.net/Raw"
+                  output_path: "abfss://cloudfinance@cloudstorageram.dfs.core.windows.net/Transformed"
+ECHO is on.
+  staging:
+    mode: staging
+    workspace:
+      host: https://adb-675897641147647.4.azuredatabricks.net/
+    resources:
+      jobs:
+        banking_data_job:
+          name: "Banking Data Transformation - \${var.environment}"
+          schedule:
+            quartz_cron_expression: "0 0 6 * * ?"  # Daily at 6 AM
+            timezone_id: "UTC"
+          tasks:
+            - task_key: data_transformation
+              new_cluster:
+                num_workers: 2
+                node_type_id: Standard_DS3_v2
+                spark_version: "12.2.x-scala2.12"
+              notebook_task:
+                notebook_path: "/src/data_transformation"
+                base_parameters:
+                  input_path: "abfss://cloudfinance@cloudstorageram.dfs.core.windows.net/Raw"
+                  output_path: "abfss://cloudfinance@cloudstorageram.dfs.core.windows.net/Transformed"
+ECHO is on.
+  production:
+    mode: production
+    workspace:
+      host: https://adb-675897641147647.4.azuredatabricks.net/
+    resources:
+      jobs:
+        banking_data_job:
+          name: "Banking Data Transformation - \${var.environment}"
+          schedule:
+            quartz_cron_expression: "0 0 6 * * ?"  # Daily at 6 AM
+            timezone_id: "UTC"
+          tasks:
+            - task_key: data_transformation
+              new_cluster:
+                num_workers: 4
+                node_type_id: Standard_DS3_v2
+                spark_version: "12.2.x-scala2.12"
+              notebook_task:
+                notebook_path: "/src/data_transformation"
+                base_parameters:
+                  input_path: "abfss://cloudfinance@cloudstorageram.ddfs.core.windows.net/Raw"
+                  output_path: "abfss://cloudfinance@cloudstorageram.dfs.core.windows.net/Transformed"

@@ -1,0 +1,13 @@
+# Development environment configuration
+variables:
+  existing_cluster_id: "your-development-cluster-id"
+ECHO is on.
+sync:
+  include:
+    - src/**
+  exclude:
+    - "*.pyc"
+    - "__pycache__"
+ECHO is on.
+artifacts:
+  wheels: []
