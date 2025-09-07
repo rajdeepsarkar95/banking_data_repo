@@ -1,0 +1,4 @@
+pyspark
+databricks-cli
+azure-identity
+azure-mgmt-datafactory

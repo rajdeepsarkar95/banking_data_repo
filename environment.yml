@@ -1,0 +1,7 @@
+name: banking_data_env 
+dependencies: 
+  - python=3.8 
+  - pyspark 
+  - databricks-cli 
+  - azure-identity 
+  - azure-mgmt-datafactory 
