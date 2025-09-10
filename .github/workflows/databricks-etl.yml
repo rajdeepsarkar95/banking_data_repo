@@ -32,6 +32,12 @@ jobs:
       - name: Setup Databricks CLI
         uses: databricks/setup-cli@main
 
+      # Update Databricks Git Folder
+      - name: Update Databricks Git Folder
+        run: |
+          databricks repos update /Repos/samanarika52@outlook.com/banking_data_repo_ram --branch main
+        if: env.DATABRICKS_TOKEN != ''
+
       # Trigger Databricks job
       - name: Run Databricks ETL Job
         run: |
