@@ -41,5 +41,5 @@ jobs:
       # Trigger Databricks job
       - name: Run Databricks ETL Job
         run: |
-          databricks jobs run-now --job-id 911328418800320
+          databricks jobs run-now 911328418800320
         if: env.DATABRICKS_TOKEN != ''
