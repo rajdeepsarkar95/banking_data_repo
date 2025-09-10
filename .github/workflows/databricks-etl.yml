@@ -13,22 +13,15 @@ concurrency: prod_environment
 # Permissions for GitHub Actions
 permissions:
   contents: read
-  id-token: write
 
 jobs:
   run-etl:
     runs-on: ubuntu-latest
-    name: Trigger Databricks and ADF ETL
+    name: Trigger Databricks ETL
     environment: Prod
     env:
       DATABRICKS_HOST: ${{ secrets.DATABRICKS_HOST }}
       DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_TOKEN }}
-      AZURE_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
-      AZURE_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
-      AZURE_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
-      AZURE_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
-      AZURE_RESOURCE_GROUP: ${{ secrets.AZURE_RESOURCE_GROUP }}
-      AZURE_DATA_FACTORY_NAME: ${{ secrets.AZURE_DATA_FACTORY_NAME }}
 
     steps:
       # Check out the repository code
@@ -39,14 +32,8 @@ jobs:
       - name: Setup Databricks CLI
         uses: databricks/setup-cli@main
 
-      # Update Databricks workspace Git repository
-      - name: Update Databricks Repository
-        run: |
-          databricks repos update /Repos/rajdeepsarkar95/banking_data_repo --branch main
-        if: env.DATABRICKS_TOKEN != ''
-
       # Trigger Databricks job
       - name: Run Databricks ETL Job
         run: |
-          databricks jobs run-now --job-id <your-job-id>
+          databricks jobs run-now --job-id 911328418800320
         if: env.DATABRICKS_TOKEN != ''
